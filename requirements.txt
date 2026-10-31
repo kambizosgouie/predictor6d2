@@ -1,0 +1,9 @@
+streamlit>=1.40
+pandas>=2.2
+openpyxl>=3.1
+numpy>=1.26
+scikit-learn>=1.5
+matplotlib>=3.8
+xgboost>=2.0
+catboost>=1.2.5
+shap>=0.46
