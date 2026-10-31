@@ -371,16 +371,7 @@ Typical patterns:
 
 These public datasets let you try the app. Download each file (see below), then upload it in the sidebar.
 
-### 14.1 Included with this project
-
-| File | Inputs | Targets | Complete rows |
-|------|--------|---------|---------------|
-| `data_de_vi.csv` | `temp`, `loading`, `conc` | `density`, `visc` | 27 |
-| `data_th_sp.csv` | `temp`, `loading`, `conc` | `thcond`, `spheat` | 90 |
-
-These are the thermophysical data the app was designed for. They are small, so test scores are noisy; they are best for checking the workflow and the two-target behaviour.
-
-### 14.2 Public datasets (verified download links)
+### 14.1 Public datasets (verified download links)
 
 | Dataset | Direct link | Suggested inputs | Suggested target | Rows | Notes |
 |---------|-------------|------------------|------------------|------|-------|
@@ -392,7 +383,7 @@ These are the thermophysical data the app was designed for. They are small, so t
 
 The Boston housing dataset is widely used for teaching but contains a variable (`b`) that is now considered ethically problematic. It is suggested here only as a test of the software; `b` is excluded from the suggested inputs.
 
-### 14.3 How to download them
+### 14.2 How to download them
 
 **PowerShell (Windows):**
 
@@ -417,7 +408,7 @@ curl -L -O https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv
 
 **Browser:** open the link, press **Ctrl + S**, and save as a `.csv` file (set "Save as type" to *All files* so the extension is not changed).
 
-### 14.4 Quick end-to-end check with the concrete dataset
+### 14.3 Quick end-to-end check with the concrete dataset
 
 1. Upload `concrete.csv`.
 2. Select the eight columns other than `strength` as inputs and `strength` as the target.
