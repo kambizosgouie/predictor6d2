@@ -127,12 +127,6 @@ st.markdown(
 )
 st.title("General Property Predictor — 6d2")
 
-TARGET_UNITS: dict[str, str] = {
-    "thcond": "W/(m·K)",
-    "spheat": "J/(kg·K)",
-    "density": "kg/m³",
-    "visc": "mPa·s",
-}
 TREE_MODELS = {
     "Random Forest", "Gradient Boosting", "XGBoost", "CatBoost", "Extra Trees",
 }
@@ -219,11 +213,6 @@ def standardized_effects(model, feature_names, x_train, y_train):
     return standardized_coefficients(model, feature_names, x_train, y_train)
 
 
-def metric_label(metric_name: str, target_name: str) -> str:
-    unit = TARGET_UNITS.get(target_name)
-    return f"{metric_name} [{unit}]" if unit else metric_name
-
-
 def formula_markdown(model, target_name: str, model_name: str, feature_names):
     if model_name == "Polynomial Regression deg2":
         poly = model.named_steps["poly"]
@@ -289,10 +278,6 @@ def render_zoomable_figure(figure, label, key_suffix, preview_size=(9, 5), zoom_
 
 
 def preferred_targets(columns):
-    for pair in (("thcond", "spheat"), ("density", "visc")):
-        matches = [column for column in pair if column in columns]
-        if matches:
-            return matches
     return [columns[-1]] if columns else []
 
 
@@ -825,8 +810,8 @@ with tabs[1]:
             comparison_rows.append({
                 "Model": model_name,
                 "R² (test)": test_metrics["r2"],
-                metric_label("RMSE", target_name): test_metrics["rmse"],
-                metric_label("MAE", target_name): test_metrics["mae"],
+                "RMSE": test_metrics["rmse"],
+                "MAE": test_metrics["mae"],
                 "MAPE (%)": test_metrics["mape"],
             })
         comparison = pd.DataFrame(comparison_rows).sort_values(
@@ -895,8 +880,8 @@ for tab, model_name in zip(tabs[3:], MODEL_NAMES):
                 "Target": target_name,
                 "R² (test)": f"{test_metrics['r2']:.4f}",
                 "R² (all)": f"{full_metrics['r2']:.4f}",
-                metric_label("MAE", target_name): f"{test_metrics['mae']:.6f}",
-                metric_label("RMSE", target_name): f"{test_metrics['rmse']:.6f}",
+                "MAE": f"{test_metrics['mae']:.6f}",
+                "RMSE": f"{test_metrics['rmse']:.6f}",
                 "MAPE (%) test": f"{test_metrics['mape']:.6f}",
                 "MAPE (%) all": f"{full_metrics['mape']:.6f}",
                 "AAD (%) test": f"{test_metrics['aad']:.6f}",

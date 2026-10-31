@@ -37,7 +37,7 @@ You upload a table of numbers (CSV or Excel). You choose which columns are **inp
 - explains which inputs matter and how they influence the target, using correlation methods, permutation importance, SHAP values and partial dependence;
 - lets you enter a new set of input values and see every model's prediction side by side.
 
-It was built for thermophysical property data (thermal conductivity, specific heat, density, viscosity), but it works on any numeric table.
+It works on any numeric table.
 
 ---
 
@@ -97,9 +97,7 @@ First training can take a minute or more on the free tier because several models
 - **Missing values:** rows with a missing value in any *selected* input or target are removed. Columns you did not select do not matter.
 - **Minimum size:** at least **10 complete rows**. The **Train Models** button stays disabled below that. More is better; several dozen rows or more gives meaningful test scores.
 - **A column cannot be both an input and a target.**
-- **Default selection:** if columns named `thcond`/`spheat` or `density`/`visc` exist, they are pre-selected as targets. Otherwise the last numeric column is the default target and the rest are inputs.
-
-Known units are shown next to error metrics when the target is named `thcond` (W/(m·K)), `spheat` (J/(kg·K)), `density` (kg/m³) or `visc` (mPa·s).
+- **Default selection:** the last numeric column is the default target and the rest are inputs.
 
 ---
 
