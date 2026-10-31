@@ -5,7 +5,6 @@ import hashlib
 import io
 import math
 import zipfile
-from copy import deepcopy
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -259,11 +258,15 @@ THUMBNAIL_WIDTH = 560
 
 def render_zoomable_figure(figure, label, key_suffix, preview_size=(9, 5), zoom_size=(16, 9)):
     def to_png(size, dpi):
-        clone = deepcopy(figure)
-        clone.set_size_inches(*size)
+        # Resize in place and restore: deepcopy of a figure is unsupported and
+        # fails on categorical axes with recent matplotlib/Python versions.
+        original_size = figure.get_size_inches().copy()
+        figure.set_size_inches(*size)
         buffer = io.BytesIO()
-        clone.savefig(buffer, format="png", dpi=dpi, bbox_inches="tight")
-        plt.close(clone)
+        try:
+            figure.savefig(buffer, format="png", dpi=dpi, bbox_inches="tight")
+        finally:
+            figure.set_size_inches(*original_size)
         return buffer.getvalue()
 
     # Fixed-width image: st.pyplot would stretch any figure to the container width.
